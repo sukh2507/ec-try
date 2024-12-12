@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import QuestionForm from "./QuestionForm"; // Assuming this component is in the same directory
+import QuestionForm from "./QuestionForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 
-const CreateQuiz = () => {
-    const [quiz, setQuiz] = useState({
-        name: "",
-        description: "",
-        price: "",
-        questions: [],
-    });
+const EditQuiz = ({ quizToEdit, onSave }) => {
+    const [quiz, setQuiz] = useState(quizToEdit);
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [editingQuestionIndex, setEditingQuestionIndex] = useState<number | null>(null);
+
+    const handleSave = () => {
+        onSave(quiz);
+        alert("Quiz updated successfully!");
+        // Redirect or handle after save logic here
+    };
 
     const addQuestion = (question: any) => {
         const updatedQuestions = [...quiz.questions];
@@ -38,47 +39,39 @@ const CreateQuiz = () => {
         });
     };
 
-    const saveQuiz = () => {
-        console.log("Quiz Saved", quiz);
-        // You can add API integration or any other save logic here
-    };
-
     return (
-        <div className="flex gap-6 p-6 bg-white dark:bg-black text-gray-800 dark:text-white">
+        <div className="flex gap-6 p-6">
             {/* Left Section */}
             <div className="flex flex-col w-1/2 gap-4">
                 {/* Quiz Details */}
-                <Card className="p-6 bg-gray-100 dark:bg-black">
+                <Card className="p-6">
                     <CardHeader>
-                        <CardTitle className="text-gray-800 dark:text-white">Create Quiz</CardTitle>
+                        <CardTitle>Edit Quiz</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Quiz Name</label>
+                            <label className="block text-sm font-medium mb-1">Quiz Name</label>
                             <Input
                                 value={quiz.name}
                                 onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
                                 placeholder="Enter quiz name"
-                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Description</label>
+                            <label className="block text-sm font-medium mb-1">Description</label>
                             <Input
                                 value={quiz.description}
                                 onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}
                                 placeholder="Enter quiz description"
-                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Price</label>
+                            <label className="block text-sm font-medium mb-1">Price</label>
                             <Input
                                 type="number"
                                 value={quiz.price}
                                 onChange={(e) => setQuiz({ ...quiz, price: e.target.value })}
                                 placeholder="Enter quiz price"
-                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
                         </div>
                     </CardContent>
@@ -95,14 +88,15 @@ const CreateQuiz = () => {
                 {!showQuestionForm && (
                     <Button
                         onClick={() => setShowQuestionForm(true)}
-                        className="bg-blue-500 hover:bg-blue-600 text-white mt-4 dark:bg-blue-600 dark:hover:bg-blue-700"
+                        className="bg-blue-500 hover:bg-blue-600 text-white mt-4"
                     >
                         Add Question
                     </Button>
                 )}
+
                 <Button
-                    onClick={saveQuiz}
-                    className="bg-green-500 hover:bg-green-600 text-white mt-4 dark:bg-green-600 dark:hover:bg-green-700"
+                    onClick={handleSave}
+                    className="bg-green-500 hover:bg-green-600 text-white mt-4"
                 >
                     Save Quiz
                 </Button>
@@ -110,23 +104,20 @@ const CreateQuiz = () => {
 
             {/* Right Section */}
             <div className="w-1/2 space-y-4">
-                <Card className="p-6 bg-gray-100 dark:bg-black">
+                <Card className="p-6">
                     <CardHeader>
-                        <CardTitle className="text-gray-800 dark:text-white">Added Questions</CardTitle>
+                        <CardTitle>Added Questions</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {quiz.questions.length === 0 && <p className="text-gray-500 dark:text-gray-400">No questions added yet.</p>}
+                        {quiz.questions.length === 0 && <p className="text-gray-500">No questions added yet.</p>}
                         {quiz.questions.map((q, index) => (
-                            <Card key={index} className="shadow-md bg-white dark:bg-black">
+                            <Card key={index} className="shadow-md">
                                 <CardHeader>
-                                    <CardTitle className="text-gray-800 dark:text-white">{`Q${index + 1}: ${q.title}`}</CardTitle>
+                                    <CardTitle>{`Q${index + 1}: ${q.title}`}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     {q.options.map((option: string, i: number) => (
-                                        <p
-                                            key={i}
-                                            className={`${q.solution === i ? "font-bold text-blue-600 dark:text-blue-400" : ""} text-gray-800 dark:text-gray-300`}
-                                        >
+                                        <p key={i} className={`${q.solution === i ? "font-bold text-blue-600" : ""}`}>
                                             {`${i + 1}. ${option}`}
                                         </p>
                                     ))}
@@ -134,13 +125,13 @@ const CreateQuiz = () => {
                                 <CardFooter className="flex justify-end gap-2">
                                     <Button
                                         onClick={() => editQuestion(index)}
-                                        className="bg-yellow-500 hover:bg-yellow-600 text-white dark:bg-yellow-600 dark:hover:bg-yellow-700"
+                                        className="bg-yellow-500 hover:bg-yellow-600 text-white"
                                     >
                                         Edit
                                     </Button>
                                     <Button
                                         onClick={() => removeQuestion(index)}
-                                        className="bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700"
+                                        className="bg-red-500 hover:bg-red-600 text-white"
                                     >
                                         Remove
                                     </Button>
@@ -154,4 +145,4 @@ const CreateQuiz = () => {
     );
 };
 
-export default CreateQuiz;
+export default EditQuiz;
