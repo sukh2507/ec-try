@@ -11,11 +11,12 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (user && user.isVerified) {
+      console.log("moeez is for muntaha")
       navigate(`/${user.role}`);
     } else if (user && user.isVerified === 0) {
       navigate("/verify");
     }
-  }, [navigate, user]);
+  }, [user]);
 
   const logout = () => {
     if (user) {

@@ -15,6 +15,9 @@ import TeacherRoute from "@/components/teacher/TeacherRoute";
 import TeacherDashboard from "@/components/teacher/TeacherDashboard";
 import StudentRoute from "@/components/student/StudentRoute";
 import StudentDashboard from "@/components/student/StudentDashboard";
+import CreateQuiz from "./components/teacher/CreateQuiz";
+import AllQuizzes from "./components/teacher/AllQuizzes";
+import ShowAllQuizzes from "./components/teacher/ShowAllQuizzes";
 
 function App() {
   return (
@@ -41,10 +44,14 @@ function App() {
             {/* Nested Teacher Routes */}
             <Route element={<TeacherRoute />}>
               <Route path="/teacher" element={<TeacherDashboard />} />
+              <Route path="/teacher/create-quiz" element={<CreateQuiz/>}/>
+              <Route path="/teacher/all-quizzes" element={<ShowAllQuizzes/>}/>
             </Route>
 
             {/* Nested Student Routes */}
             <Route element={<StudentRoute />}>
+              <Route path="/student" element={<StudentDashboard />} />
+              <Route path="/student/all-quizzes" element={<StudentDashboard />} />
               <Route path="/student" element={<StudentDashboard />} />
             </Route>
           </Route>

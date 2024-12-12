@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QuestionForm from "./QuestionForm";
+import QuestionForm from "../QuestionForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
@@ -11,7 +11,6 @@ const EditQuiz = ({ quizToEdit, onSave }) => {
 
     const handleSave = () => {
         onSave(quiz);
-        alert("Quiz updated successfully!");
         // Redirect or handle after save logic here
     };
 

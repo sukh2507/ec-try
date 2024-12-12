@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import QuestionForm from "./QuestionForm"; // Assuming this component is in the same directory
+import QuestionForm from "../QuestionForm"; // Assuming this component is in the same directory
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import useAxios from "@/hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const CreateQuiz = () => {
     const [quiz, setQuiz] = useState({
@@ -13,6 +15,8 @@ const CreateQuiz = () => {
     });
     const [showQuestionForm, setShowQuestionForm] = useState(false);
     const [editingQuestionIndex, setEditingQuestionIndex] = useState<number | null>(null);
+    const axios = useAxios();
+    const navigate = useNavigate();
 
     const addQuestion = (question: any) => {
         const updatedQuestions = [...quiz.questions];
@@ -38,9 +42,15 @@ const CreateQuiz = () => {
         });
     };
 
-    const saveQuiz = () => {
+    const saveQuiz = async () => {
         console.log("Quiz Saved", quiz);
-        // You can add API integration or any other save logic here
+        try {
+            const res = await axios.post("/teacher/test",quiz);
+            console.log(res);
+            navigate("/teacher")
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

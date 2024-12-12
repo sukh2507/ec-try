@@ -10,7 +10,7 @@ interface QuestionFormProps {
 }
 
 const QuestionForm: React.FC<QuestionFormProps> = ({ onSave, onCancel, existingQuestion }) => {
-    const [question, setQuestion] = useState(existingQuestion || { title: "", options: ["", "", "", ""], solution: 1 });
+    const [question, setQuestion] = useState(existingQuestion || { title: "", options: ["", "", "", ""], solution: null });
 
     const updateOption = (index: number, value: string) => {
         const updatedOptions = [...question.options];
@@ -34,14 +34,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onSave, onCancel, existingQ
                     />
                 </div>
                 {question.options.map((option: string, index: number) => (
-                    <div key={index+1}>
+                    <div key={index}>
                         <label className="block text-sm font-medium text-gray-700 dark:text-white">
-                            Option {index}
+                            Option {index + 1}
                         </label>
                         <Input
                             value={option}
                             onChange={(e) => updateOption(index, e.target.value)}
-                            placeholder={`Enter option ${index}`}
+                            placeholder={`Enter option ${index + 1}`}
                             className="bg-white dark:bg-black text-gray-800 dark:text-white"
                         />
                     </div>
@@ -51,11 +51,19 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onSave, onCancel, existingQ
                     <Input
                         type="number"
                         value={question.solution}
-                        onChange={(e) => setQuestion({ ...question, solution: e.target.value })}
+                        onChange={(e) => {
+                            const value = parseInt(e.target.value, 10);
+                            if (value >= 1 && value <= 4) {
+                                setQuestion({ ...question, solution: value - 1 });
+                            }
+                        }}
                         placeholder="Enter correct option number"
+                        min={1}
+                        max={4}
                         className="bg-white dark:bg-black text-gray-800 dark:text-white"
                     />
                 </div>
+
             </CardContent>
             <CardFooter className="flex justify-end gap-2">
                 <Button
