@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const VerifiedRoute: React.FC = () => {
   const { user } = useUser();
 
-  return user.isVerified ? <Outlet /> : <Navigate to="/verify" />;
+  return user.isVerified >= 1 ? <Outlet /> : <Navigate to="/verify" />;
 };
 
 export default VerifiedRoute;

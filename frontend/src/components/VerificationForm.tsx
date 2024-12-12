@@ -17,7 +17,6 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { toast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
 import useAxios from "@/hooks/useAxios";
 import useUser from "@/context/User/UserHook";
 import { useEffect, useRef, useState } from "react";
@@ -40,13 +39,9 @@ export function VerificationForm() {
   const [isLoading2, setIsLoading2] = useState(false);
   const { user, setUser } = useUser();
   const axios = useAxios();
-  const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (user.isVerified === true) navigate("/home");
-  }, [user, navigate]);
 
   useEffect(() => {
     if (inputRef.current) {
