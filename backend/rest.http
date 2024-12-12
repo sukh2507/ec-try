@@ -144,3 +144,7 @@ Content-Type: application/json
         }
     ]
 }
+
+### ? TEACHER / TEST
+GET {{url}}/teacher/test
+Authorization: Bearer {{teacherToken}}

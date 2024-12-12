@@ -5,6 +5,7 @@ const {
   teacherHome,
   createTest,
   updateTest,
+  getAllTests,
 } = require("../controllers/teacherControllers");
 const router = express.Router();
 
@@ -16,5 +17,7 @@ router.get("/", teacherHome);
 router.post("/test", createTest);
 
 router.put("/test/:id", updateTest);
+
+router.get("/test", getAllTests);
 
 module.exports = router;

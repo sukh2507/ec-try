@@ -69,8 +69,19 @@ const updateTest = async (req, res) => {
   }
 };
 
+const getAllTests = async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({ userId: req.user._id });
+    const tests = await Test.find({ createdBy: teacher._id });
+    res.status(200).send({ tests: tests });
+  } catch (error) {
+    res.status(400).send({ msg: { title: error.message } });
+  }
+};
+
 module.exports = {
   teacherHome,
   createTest,
   updateTest,
+  getAllTests,
 };
