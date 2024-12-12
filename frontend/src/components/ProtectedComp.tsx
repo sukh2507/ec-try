@@ -2,6 +2,8 @@ import useAxios from "@/hooks/useAxios";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
+import Teacher from "@/components/Teacher"
+import CreateQuiz from "./CreateQuiz";
 
 const ProtectedComp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +23,7 @@ const ProtectedComp = () => {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center py-10">
         You are logged in!
       </h1>
+        <CreateQuiz/>
       <Button onClick={checkStatus} disabled={isLoading ? true : false}>
         {isLoading ? <LoaderCircle className="spinner" /> : "Check Status"}
       </Button>
