@@ -1,12 +1,5 @@
 import { createContext } from "react";
-
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  isVerified: boolean;
-  token: string;
-};
+import User from "@/types/User";
 
 type UserContextType = {
   user: User | null;
