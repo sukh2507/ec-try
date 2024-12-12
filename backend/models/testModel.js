@@ -14,7 +14,7 @@ const testSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    isVerfied: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
