@@ -1,46 +1,58 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isVerified: {
+      type: Number,
+      default: 0,
+    },
+    role: {
+      type: String,
+      enum: ["teacher", "student"],
+      required: true,
+    },
+    verificationToken: {
+      type: String,
+    },
+    verificationTokenExpires: {
+      type: Date,
+    },
+    newEmail: {
+      type: String,
+    },
+    newEmailToken: {
+      type: String,
+    },
+    newEmailExpires: {
+      type: Date,
+    },
+    forgetPasswordToken: {
+      type: String,
+    },
+    forgetPasswordExpires: {
+      type: Date,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
-  verificationToken: {
-    type: String,
-  },
-  verificationTokenExpires: {
-    type: Date,
-  },
-  newEmail: {
-    type: String,
-  },
-  newEmailToken: {
-    type: String,
-  },
-  newEmailExpires: {
-    type: Date,
-  },
-  forgetPasswordToken: {
-    type: String,
-  },
-  forgetPasswordExpires: {
-    type: Date,
-  },
-});
+  { timestamps: true },
+);
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); //return if password is not modified

@@ -20,17 +20,35 @@ router.get("/", (req, res) => {
 
 router.post("/register", registerUser);
 
-router.get("/token/verify/:token", protect, verifyToken);
+router.get(
+  "/token/verify/:token",
+  protect(["student", "teacher"]),
+  verifyToken,
+);
 
-router.get("/token/regenerate", protect, regenerateToken);
+router.get(
+  "/token/regenerate",
+  protect(["student", "teacher"]),
+  regenerateToken,
+);
 
 router.post("/login", login);
 
-router.put("/password", protect, userVerify, changePassword);
+router.put(
+  "/password",
+  protect(["student", "teacher"]),
+  userVerify,
+  changePassword,
+);
 
-router.put("/email", protect, userVerify, changeEmail);
+router.put("/email", protect(["student", "teacher"]), userVerify, changeEmail);
 
-router.get("/email/verify/:token", protect, userVerify, verifyChangeEmail);
+router.get(
+  "/email/verify/:token",
+  protect(["student", "teacher"]),
+  userVerify,
+  verifyChangeEmail,
+);
 
 router.put("/password/forget", forgetPasswordInitiate);
 

@@ -1,31 +1,54 @@
+@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDAwODkyNSwiZXhwIjoxNzM0MDk1MzI1fQ.vIoyNC54nqnnOT2FbZUMi-WUHMLckfGAc3ZgDIDcono
+@teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMThlMTAxY2Q5MDcyYzg0ZTIzYSIsImlhdCI6MTczNDAwOTIzMywiZXhwIjoxNzM0MDk1NjMzfQ.aoAsNu-UYZvC5eJsOU6HY3wWdvyR0mu59c58_kRb7mM
+
+@url=http://localhost:4000/api
+
 ### ? API
 GET {{url}}
 
 ### ? AUTH / REGISTER
-POST {{url}}/auth/register 
+POST {{url}}/auth/register
 Content-Type: application/json
 
 {
-    "name":"Moeez Ali",
-    "email":"moeezali2375@gmail.com",
-    "password":"1234"
+    "name": "Moeez Ali",
+    "email": "moeezali2375@test.com",
+    "phone": "+923059119149",
+    "role": "teacher",
+    "password": "1234",
+    "stream": "Sciences",
+    "subjects": ["Physics", "Chemistry","Biology"]
+}
+
+### ? AUTH / REGISTER
+POST {{url}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "Moeez Ali",
+    "email": "moeezali2375@test2.com",
+    "phone": "+923059119149",
+    "role": "student",
+    "password": "1234",
+    "stream": "Sciences",
+    "subjects": ["JEE", "NEET"]
 }
 
 ### ? AUTH / TOKEN / VERIFY
-GET {{url}}/auth/token/verify/193426
-Authorization: Bearer {{token}}
+GET {{url}}/auth/token/verify/948462
+Authorization: Bearer {{teacherToken}}
 
 ### ? AUTH / TOKEN / REGENERATE
-GET {{url}}/auth/token/verify/regenerate
-Authorization: Bearer {{token}}
+GET {{url}}/auth/token/regenerate
+Authorization: Bearer {{studentToken}}
 
 ### ? AUTH / LOGIN
-POST {{url}}/auth/login 
+POST {{url}}/auth/login
 Content-Type: application/json
 
 {
-    "email":"moeezali2375@gmail.com",
-    "password":"12345"
+    "email":"moeezali2375@icloud.com",
+    "password":"1234"
 }
 
 ### ? AUTH / PASSWORD
@@ -70,4 +93,54 @@ Content-Type: application/json
 
 ### ? PROTECT
 GET {{url}}/protect
-Authorization: Bearer {{token}}
+Authorization: Bearer {{studentToken}}
+
+### ? TEACHER
+GET {{url}}/teacher
+Authorization: Bearer {{teacherToken}}
+
+### ? TEACHER / TEST
+POST {{url}}/teacher/test
+Authorization: Bearer {{teacherToken}}
+Content-Type: application/json
+
+{
+    "name": "JEE Test",
+    "description": "This is test-TEST",
+    "price": 10,
+    "questions": [
+        {
+            "title": "This is 1st question.",
+            "options": ["1st option", "2nd option", "3rd option", "4th option"],
+            "solution": 2
+        },
+        {
+            "title": "This is 2nd question.",
+            "options": ["1st option", "2nd option", "3rd option", "4th option"],
+            "solution": 3
+        }
+    ]
+}
+
+### ? TEACHER / TEST / :ID
+PUT {{url}}/teacher/test/675aeda86291a4386f856b56
+Authorization: Bearer {{teacherToken}}
+Content-Type: application/json
+
+{
+    "name": "JEE Test Updated",
+    "description": "This is test-TEST",
+    "price": 10,
+    "questions": [
+        {
+            "title": "This is 1st question.",
+            "options": ["1st option", "2nd option", "3rd option", "4th option"],
+            "solution": 2
+        },
+        {
+            "title": "This is 2nd question.",
+            "options": ["1st option", "2nd option", "3rd option", "4th option"],
+            "solution": 3
+        }
+    ]
+}

@@ -1,4 +1,7 @@
 const User = require("../models/userModel");
+const Teacher = require("../models/teacherModel");
+const Student = require("../models/studentModel");
+
 const sendEmail = require("../utils/sendEmail");
 const {
   generateVerificationToken,
@@ -27,11 +30,21 @@ const sendEmailNotification = async (to, subject, message) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, phone, password, role, stream, subjects } = req.body;
 
-    if (!name || !email || !password) {
-      throw new Error("Please give name, email and password. 🥸");
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phone ||
+      !password ||
+      !role ||
+      !stream ||
+      !subjects
+    ) {
+      throw new Error("Please give all details. 🥸");
     }
+    console.log(subjects);
     const now = new Date();
     const userExists = await User.findOne({
       email: email,
@@ -47,12 +60,30 @@ const registerUser = async (req, res) => {
     const user = new User({
       name: name,
       email: email,
+      phone: phone,
       password: password,
+      role: role,
       verificationToken: generateVerificationToken(),
       verificationTokenExpires: expiry(300), //5 min
     });
 
     await user.save();
+    if (user.role === "teacher") {
+      const teacher = new Teacher({
+        userId: user._id,
+        stream: stream,
+        subjects: subjects,
+      });
+      await teacher.save();
+    } else {
+      const student = new Student({
+        userId: user._id,
+        stream: stream,
+        subjects: subjects,
+      });
+      await student.save();
+    }
+
     const message = emailVerificationMessage(user);
     await sendEmailNotification(user.email, message.subject, message.body);
 
@@ -76,7 +107,7 @@ const registerUser = async (req, res) => {
 
 const verifyToken = async (req, res) => {
   try {
-    if (req.user.isVerified) throw new Error("User already verified. 🤨");
+    if (req.user.isVerified >= 1) throw new Error("User already verified. 🤨");
     const user = await User.findOne({
       verificationToken: req.params.token,
       verificationTokenExpires: { $gt: Date.now() },
@@ -86,7 +117,7 @@ const verifyToken = async (req, res) => {
       throw new Error("Invalid or expired token. 😣");
     }
 
-    user.isVerified = true;
+    user.isVerified = 1;
     user.verificationToken = undefined;
     user.verificationTokenExpires = undefined;
 
@@ -108,7 +139,7 @@ const verifyToken = async (req, res) => {
 
 const regenerateToken = async (req, res) => {
   try {
-    if (req.user.isVerified) throw new Error("User already verified. 🤨");
+    if (req.user.isVerified >= 1) throw new Error("User already verified. 🤨");
     const user = await User.findById(req.user._id);
     user.verificationToken = generateVerificationToken();
     await user.save();
@@ -141,6 +172,8 @@ const login = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
+            role: user.role,
             isVerified: user.isVerified,
             token: generateToken(user._id, rememberMe),
           },
@@ -211,7 +244,7 @@ const changeEmail = async (req, res) => {
         await sendEmailNotification(
           user.newEmail,
           message.subject,
-          message.body
+          message.body,
         );
 
         res.status(200).send({
