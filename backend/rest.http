@@ -1,4 +1,4 @@
-@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDAwODkyNSwiZXhwIjoxNzM0MDk1MzI1fQ.vIoyNC54nqnnOT2FbZUMi-WUHMLckfGAc3ZgDIDcono
+@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDEwMDQ5MywiZXhwIjoxNzM0MTg2ODkzfQ.7Ib2T2OD4EV5U7Fso3HnozLjYseDILP6uqjBxkHsqGk
 @teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMThlMTAxY2Q5MDcyYzg0ZTIzYSIsImlhdCI6MTczNDAwOTIzMywiZXhwIjoxNzM0MDk1NjMzfQ.aoAsNu-UYZvC5eJsOU6HY3wWdvyR0mu59c58_kRb7mM
 
 @url=http://localhost:4000/api
@@ -148,3 +148,12 @@ Content-Type: application/json
 ### ? TEACHER / TEST
 GET {{url}}/teacher/test
 Authorization: Bearer {{teacherToken}}
+
+
+### ? STUDENT / TEST
+GET {{url}}/student/test
+Authorization: Bearer {{studentToken}}
+
+### ? STUDENT / TEST / TESTID
+POST {{url}}/student/test/675aeda86291a4386f856b56
+Authorization: Bearer {{studentToken}}
