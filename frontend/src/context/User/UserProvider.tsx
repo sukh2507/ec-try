@@ -14,6 +14,8 @@ const UserProvider = ({ children }) => {
       console.log("moeez is for muntaha")
       navigate(`/${user.role}`);
     } else if (user && user.isVerified === 0) {
+      console.log('====================================');
+      console.log('====================================');
       navigate("/verify");
     }
   }, [user]);

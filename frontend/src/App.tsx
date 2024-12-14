@@ -18,6 +18,9 @@ import StudentDashboard from "@/components/student/StudentDashboard";
 import CreateQuiz from "./components/teacher/CreateQuiz";
 import AllQuizzes from "./components/teacher/AllQuizzes";
 import ShowAllQuizzes from "./components/teacher/ShowAllQuizzes";
+import BrowseAllQuizzes from "./components/student/BrowseAllQuizzes"
+import MyQuizzesOverview from "./components/student/MyQuizzesOverview";
+import QuizSolvingPage from "./components/student/QuizSolvingPage";
 
 function App() {
   return (
@@ -39,7 +42,7 @@ function App() {
               path="/email/verify/:token"
               element={<ChangeEmailVerification />}
             />
-            <Route path="/home" element={<ProtectedComp />} />
+            {/* <Route path="/home" element={<ProtectedComp />} /> */}
 
             {/* Nested Teacher Routes */}
             <Route element={<TeacherRoute />}>
@@ -51,8 +54,11 @@ function App() {
             {/* Nested Student Routes */}
             <Route element={<StudentRoute />}>
               <Route path="/student" element={<StudentDashboard />} />
-              <Route path="/student/all-quizzes" element={<StudentDashboard />} />
-              <Route path="/student" element={<StudentDashboard />} />
+              <Route path="/student/all-quizzes" element={<BrowseAllQuizzes />} />
+              <Route path="/student/my-quizzes" element={<MyQuizzesOverview />} />
+              <Route path="/student/my-quizzes/purchased" element={<MyQuizzesOverview />} />
+              <Route path="/student/my-quizzes/pending" element={<MyQuizzesOverview />} />
+              <Route path="/solve" element={<QuizSolvingPage />} />
             </Route>
           </Route>
         </Route>
