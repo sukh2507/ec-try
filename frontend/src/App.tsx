@@ -7,7 +7,6 @@ import { VerificationForm } from "@/components/VerificationForm";
 import { Toaster } from "@/components/ui/toaster";
 import PrivateRoute from "@/components/PrivateRoute";
 import VerifiedRoute from "@/components/VerifiedRoute";
-import ProtectedComp from "@/components/ProtectedComp";
 import ChangeEmailVerification from "@/components/ChangeEmailVerification";
 import ForgetPwd from "@/components/ForgetPwd";
 import ResetPwd from "@/components/ResetPwd";
@@ -16,7 +15,6 @@ import TeacherDashboard from "@/components/teacher/TeacherDashboard";
 import StudentRoute from "@/components/student/StudentRoute";
 import StudentDashboard from "@/components/student/StudentDashboard";
 import CreateQuiz from "./components/teacher/CreateQuiz";
-import AllQuizzes from "./components/teacher/AllQuizzes";
 import ShowAllQuizzes from "./components/teacher/ShowAllQuizzes";
 import BrowseAllQuizzes from "./components/student/BrowseAllQuizzes"
 import MyQuizzesOverview from "./components/student/MyQuizzesOverview";

@@ -8,7 +8,7 @@ const TeacherRoute = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (user?.isVerified === 1) {
+    if (user.role == "teacher" && user?.isVerified === 1) {
       toast({
         variant: "destructive",
         title: "🚫 Access Denied 🔒",

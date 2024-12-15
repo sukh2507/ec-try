@@ -11,13 +11,11 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (user && user.isVerified) {
-      console.log("moeez is for muntaha")
       navigate(`/${user.role}`);
     } else if (user && user.isVerified === 0) {
-      console.log('====================================');
-      console.log('====================================');
       navigate("/verify");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const logout = () => {

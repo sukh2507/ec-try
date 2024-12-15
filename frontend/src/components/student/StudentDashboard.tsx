@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
-  const navigateTo = (path) => {
-    console.log(`Navigating to ${path}`); // Replace with actual navigation logic
-  };
+  // const navigateTo = (path:string ) => {
+  //   console.log(`Navigating to ${path}`); // Replace with actual navigation logic
+  // };
 
   return (
     <div className="container mx-auto p-4">
