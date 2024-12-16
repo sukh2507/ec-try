@@ -6,6 +6,7 @@ const {
   getAllTests,
   requestATest,
   getTestsByPaymentStatus,
+  addMarks,
 } = require("../controllers/studentControllers");
 
 router.use(protect(["student"]));
@@ -16,4 +17,7 @@ router.get("/test", getAllTests);
 router.post("/test/:testId", requestATest);
 
 router.get("/test/query", getTestsByPaymentStatus);
+
+router.post("/test/:testId/marks", addMarks);
+
 module.exports = router;

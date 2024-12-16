@@ -1,5 +1,6 @@
 const Student = require("../models/studentModel");
 const Test = require("../models/testModel");
+const Submission = require("../models/submissionModel");
 
 const getAllTests = async (req, res) => {
   try {
@@ -95,8 +96,58 @@ const getTestsByPaymentStatus = async (req, res) => {
   }
 };
 
+const addMarks = async (req, res) => {
+  try {
+    const { marks } = req.body;
+
+    const student = await Student.findOne({ userId: req.user._id });
+    const studentId = student._id;
+
+    const { testId } = req.params;
+
+    if (!testId || !marks) {
+      throw new Error(
+        "❌ All fields are required! Please provide testId and marks.",
+      );
+    }
+
+    const timeOfSubmission = new Date();
+
+    let submission = await Submission.findOne({ testId, studentId });
+
+    if (submission) {
+      submission.marks.push({ timeOfSubmission, marks });
+      await submission.save();
+      return res.status(200).json({
+        msg: { title: "✅ Marks entry added successfully! 🎉" },
+        submission,
+      });
+    } else {
+      submission = new Submission({
+        testId,
+        studentId,
+        marks: [{ timeOfSubmission, marks }],
+      });
+      await submission.save();
+      return res.status(201).json({
+        message: "🆕 Submission created and marks added successfully! 🚀",
+        submission,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({
+      msg: {
+        title:
+          "⚠️ An error occurred while adding marks. Please try again later.",
+      },
+    });
+  }
+};
+
 module.exports = {
   getAllTests,
   requestATest,
   getTestsByPaymentStatus,
+  addMarks,
 };
