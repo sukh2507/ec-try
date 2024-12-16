@@ -1,5 +1,5 @@
-@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDEwMDQ5MywiZXhwIjoxNzM0MTg2ODkzfQ.7Ib2T2OD4EV5U7Fso3HnozLjYseDILP6uqjBxkHsqGk
-@teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMThlMTAxY2Q5MDcyYzg0ZTIzYSIsImlhdCI6MTczNDAwOTIzMywiZXhwIjoxNzM0MDk1NjMzfQ.aoAsNu-UYZvC5eJsOU6HY3wWdvyR0mu59c58_kRb7mM
+@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDM1MTU1OSwiZXhwIjoxNzM0NDM3OTU5fQ.THu-jPQiisXDmrklfwUW6squl7lFUa3Any_IxvOwVC8
+@teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWRiYzM1ODU5ZWJlNTNiODk5MGFiZCIsImlhdCI6MTczNDE5NjI4NiwiZXhwIjoxNzM0MjgyNjg2fQ.TqlzefYedzyWdRk36LFSVulvOPKxXc6OpSVG4wmQIzc
 
 @url=http://localhost:4000/api
 
@@ -11,8 +11,8 @@ POST {{url}}/auth/register
 Content-Type: application/json
 
 {
-    "name": "Moeez Ali",
-    "email": "moeezali2375@test.com",
+    "name": "Sukhbir Singh",
+    "email": "sukhbirsinghsareenxa33@gmail.com",
     "phone": "+923059119149",
     "role": "teacher",
     "password": "1234",
@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ### ? AUTH / TOKEN / VERIFY
-GET {{url}}/auth/token/verify/948462
+GET {{url}}/auth/token/verify/879564
 Authorization: Bearer {{teacherToken}}
 
 ### ? AUTH / TOKEN / REGENERATE
@@ -157,3 +157,12 @@ Authorization: Bearer {{studentToken}}
 ### ? STUDENT / TEST / TESTID
 POST {{url}}/student/test/675aeda86291a4386f856b56
 Authorization: Bearer {{studentToken}}
+
+### ? STUDENT / TEST / PENDING
+GET {{url}}/student/test/pending
+Authorization: Bearer {{studentToken}}
+
+### ? STUDENT / TEST / BOUGHT
+GET {{url}}/student/test/query?paid=0
+Authorization: Bearer {{studentToken}}
+
