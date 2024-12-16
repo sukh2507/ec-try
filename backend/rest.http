@@ -170,6 +170,6 @@ Authorization: Bearer {{studentToken}}
 Content-Type: application/json
 
 {
-    "marks":10
+    "marks":20
 }
 

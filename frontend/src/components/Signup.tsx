@@ -15,20 +15,43 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { LoaderCircle } from "lucide-react";
 import PwdInput from "@/components/PwdInput";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [match, setMatch] = useState(0);
+  const [role, setRole] = useState("student");
+  const [stream, setStream] = useState("");
+  const [subjects, setSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUser } = useUser();
   const axios = useAxios();
+
+  const roleStreams = {
+    teacher: ["Commerce", "Humanities", "Sciences"],
+    student: ["Commerce", "Humanities", "Sciences"],
+  };
+
+  const streamSubjects = {
+    teacher: {
+      Commerce: ["Economics", "Business Studies", "Accountancy"],
+      Humanities: ["History", "Geography", "Psychology"],
+      Sciences: ["Physics", "Chemistry", "Biology"],
+    },
+    student: {
+      Commerce: ["CUET"],
+      Humanities: ["CUET"],
+      Sciences: ["JEE", "NEET", "CUET"],
+    },
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,15 +64,38 @@ const Signup = () => {
     return () => clearTimeout(timer);
   }, [pwd, confirmPwd]);
 
+  const toggleSubject = (subject) => {
+    setSubjects((prev) =>
+      prev.includes(subject)
+        ? prev.filter((s) => s !== subject)
+        : [...prev, subject],
+    );
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!name || !email || match === 2 || match == 0) return;
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      match === 2 ||
+      match === 0 ||
+      !stream ||
+      subjects.length === 0
+    ) {
+      alert("Please fill all fields correctly!");
+      return;
+    }
     try {
       setIsLoading(true);
       const res = await axios.post("/auth/register", {
-        name: name,
-        email: email,
+        name,
+        email,
+        phone,
         password: pwd,
+        role,
+        stream,
+        subjects,
       });
       navigate("/home");
       setUser(res.data.user);
@@ -62,7 +108,6 @@ const Signup = () => {
 
   return (
     <TabsContent value="signup">
-      {/* //! Signup */}
       <Card>
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
@@ -102,6 +147,71 @@ const Signup = () => {
               />
             </div>
             <div className="space-y-1">
+              <Label htmlFor="phone">Phone</Label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="03XXXXXXXXX"
+                autoCorrect="off"
+                spellCheck="false"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="role">Role</Label>
+              <select
+                id="role"
+                value={role}
+                onChange={(e) => {
+                  setRole(e.target.value);
+                  setStream("");
+                  setSubjects([]);
+                }}
+                className="w-full border rounded px-2 py-1"
+              >
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+              </select>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="stream">Stream</Label>
+              <select
+                id="stream"
+                value={stream}
+                onChange={(e) => {
+                  setStream(e.target.value);
+                  setSubjects([]);
+                }}
+                className="w-full border rounded px-2 py-1"
+              >
+                <option value="" disabled>
+                  Select a stream
+                </option>
+                {roleStreams[role].map((streamOption) => (
+                  <option key={streamOption} value={streamOption}>
+                    {streamOption}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {stream && (
+              <div className="space-y-1">
+                <Label>Subjects</Label>
+                {streamSubjects[role][stream].map((subject) => (
+                  <div key={subject} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={subject}
+                      checked={subjects.includes(subject)}
+                      onCheckedChange={() => toggleSubject(subject)}
+                    />
+                    <Label htmlFor={subject}>{subject}</Label>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="space-y-1">
               <PwdInput
                 id="pwd"
                 name="Password"
@@ -121,11 +231,7 @@ const Signup = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button
-              size="sm"
-              disabled={isLoading ? true : false}
-              className="w-full"
-            >
+            <Button size="sm" disabled={isLoading} className="w-full">
               {isLoading ? <LoaderCircle className="spinner" /> : "Sign Up!"}
             </Button>
           </CardFooter>

@@ -10,12 +10,13 @@ const UserProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user && user.isVerified) {
+
+    if (user && user?.isVerified) {
       navigate(`/${user.role}`);
     } else if (user && user.isVerified === 0) {
       navigate("/verify");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const logout = () => {

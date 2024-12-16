@@ -21,6 +21,7 @@ import useAxios from "@/hooks/useAxios";
 import useUser from "@/context/User/UserHook";
 import { useEffect, useRef, useState } from "react";
 import { LoaderCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -38,10 +39,10 @@ export function VerificationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
   const axios = useAxios();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-
 
   useEffect(() => {
     if (inputRef.current) {
@@ -73,7 +74,8 @@ export function VerificationForm() {
         ),
       });
       await axios.get(url);
-      setUser({ ...user, isVerified: true });
+      setUser({ ...user, isVerified: 1 });
+      navigate(`/${user.role}`);
     } catch (error) {
       console.log(error);
     } finally {
