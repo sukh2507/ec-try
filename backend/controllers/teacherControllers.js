@@ -7,8 +7,8 @@ const teacherHome = async (req, res) => {
 
 const createTest = async (req, res) => {
   try {
-    const { name, description, price, questions } = req.body;
-    if (!name || !description || !price || !questions)
+    const { name, description, price, questions, time } = req.body;
+    if (!name || !description || !price || !questions || !time)
       throw new Error("Please give all details");
 
     const teacher = await Teacher.findOne({ userId: req.user._id });
@@ -19,6 +19,7 @@ const createTest = async (req, res) => {
       price: price,
       questions: questions,
       createdBy: teacher._id,
+      time: time,
     });
 
     const testRes = await test.save();
@@ -38,9 +39,9 @@ const createTest = async (req, res) => {
 const updateTest = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, price, questions } = req.body;
+    const { name, description, price, questions, time } = req.body;
 
-    if (!name && !description && !price && !questions) {
+    if (!name && !description && !price && !questions && !time) {
       throw new Error("Please provide at least one field to update");
     }
 
@@ -54,6 +55,7 @@ const updateTest = async (req, res) => {
     test.description = description || test.description;
     test.price = price || test.price;
     test.questions = questions || test.questions;
+    test.time = time || test.time;
 
     const updatedTest = await test.save();
 

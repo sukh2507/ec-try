@@ -1,5 +1,5 @@
 @studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDM1MTU1OSwiZXhwIjoxNzM0NDM3OTU5fQ.THu-jPQiisXDmrklfwUW6squl7lFUa3Any_IxvOwVC8
-@teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWRiYzM1ODU5ZWJlNTNiODk5MGFiZCIsImlhdCI6MTczNDE5NjI4NiwiZXhwIjoxNzM0MjgyNjg2fQ.TqlzefYedzyWdRk36LFSVulvOPKxXc6OpSVG4wmQIzc
+@teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMThlMTAxY2Q5MDcyYzg0ZTIzYSIsImlhdCI6MTczNDM1MzI1NCwiZXhwIjoxNzM0NDM5NjU0fQ.Qw2j_rJjCSY6-YN1R6bWzgApqyvsVdI-ZS5YOryvY4w
 
 @url=http://localhost:4000/api
 
@@ -47,7 +47,7 @@ POST {{url}}/auth/login
 Content-Type: application/json
 
 {
-    "email":"moeezali2375@icloud.com",
+    "email":"moeezali2375@gmail.com",
     "password":"1234"
 }
 
@@ -105,9 +105,10 @@ Authorization: Bearer {{teacherToken}}
 Content-Type: application/json
 
 {
-    "name": "JEE Test",
+    "name": "JEE Test new with time add",
     "description": "This is test-TEST",
     "price": 10,
+    "time":20,
     "questions": [
         {
             "title": "This is 1st question.",
@@ -131,6 +132,7 @@ Content-Type: application/json
     "name": "JEE Test Updated",
     "description": "This is test-TEST",
     "price": 10,
+    "time":30,
     "questions": [
         {
             "title": "This is 1st question.",
@@ -156,10 +158,6 @@ Authorization: Bearer {{studentToken}}
 
 ### ? STUDENT / TEST / TESTID
 POST {{url}}/student/test/675aeda86291a4386f856b56
-Authorization: Bearer {{studentToken}}
-
-### ? STUDENT / TEST / PENDING
-GET {{url}}/student/test/pending
 Authorization: Bearer {{studentToken}}
 
 ### ? STUDENT / TEST / BOUGHT

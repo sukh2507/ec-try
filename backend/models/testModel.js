@@ -14,6 +14,12 @@ const testSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    time: {
+      type: Number,
+      required: true,
+      min: [1, "Time must be at least 1 minute"],
+      max: [180, "Time must not exceed 180 minutes"],
+    },
     isVerified: {
       type: Boolean,
       default: false,
