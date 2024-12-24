@@ -32,6 +32,7 @@ const AllQuizzes = ({ quizzes, onDelete, onEdit }) => {
                                 <p className="text-gray-700 dark:text-gray-300">{quiz.description || "No description provided."}</p>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Price: ${quiz.price || "Free"}</p>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Questions: {quiz.questions.length}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">Duration: {quiz.time} mins</p>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Status: {quiz.isVerified ? 'Approved ✅' : 'Approved ❌'}</p>
                             </CardContent>
                             <CardFooter className="flex justify-end gap-2">

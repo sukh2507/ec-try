@@ -2,19 +2,22 @@ import { Link } from "react-router-dom";
 
 const TeacherDashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-6">Teacher Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-        {/* Card 1: Create a Quiz */}
-        <div className="p-6 bg-white shadow rounded-lg flex flex-col items-center">
-          <div className="text-blue-500 mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex flex-col items-center">
+      {/* Header */}
+      <h1 className="text-4xl font-extrabold text-white mb-12 mt-10">
+        Teacher Dashboard
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl px-6">
+        {/* Card 1: Create a Test */}
+        <div className="group p-8 bg-white shadow-lg rounded-xl flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div className="text-blue-500 mb-6 group-hover:animate-bounce">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-12 h-12"
+              className="w-16 h-16"
             >
               <path
                 strokeLinecap="round"
@@ -23,25 +26,27 @@ const TeacherDashboard = () => {
               />
             </svg>
           </div>
-          <h2 className="text-lg font-semibold mb-4">Create a Test</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Create a Test
+          </h2>
           <Link
             to="/teacher/create-quiz"
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium shadow hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transform transition-all duration-300 hover:translate-y-[-3px]"
           >
             Start Now
           </Link>
         </div>
 
-        {/* Card 2: Show All Quizzes */}
-        <div className="p-6 bg-white shadow rounded-lg flex flex-col items-center">
-          <div className="text-green-500 mb-4">
+        {/* Card 2: Show All Tests */}
+        <div className="group p-8 bg-white shadow-lg rounded-xl flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+          <div className="text-green-500 mb-6 group-hover:animate-spin">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-12 h-12"
+              className="w-16 h-16"
             >
               <path
                 strokeLinecap="round"
@@ -50,39 +55,14 @@ const TeacherDashboard = () => {
               />
             </svg>
           </div>
-          <h2 className="text-lg font-semibold mb-4">Show All Tests</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Show All Tests
+          </h2>
           <Link
             to="/teacher/all-quizzes"
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            className="px-6 py-3 bg-green-500 text-white rounded-lg font-medium shadow hover:bg-green-600 focus:ring-4 focus:ring-green-300 transform transition-all duration-300 hover:translate-y-[-3px]"
           >
             View Quizzes
-          </Link>
-        </div>
-
-        {/* Card 3: Analyze Results */}
-        <div className="p-6 bg-white shadow rounded-lg flex flex-col items-center">
-          <div className="text-yellow-500 mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-12 h-12"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3v18m9-9H3"
-              />
-            </svg>
-          </div>
-          <h2 className="text-lg font-semibold mb-4">Analyze Results</h2>
-          <Link
-            to="/analyze-results"
-            className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-          >
-            Analyze Now
           </Link>
         </div>
       </div>
@@ -91,4 +71,3 @@ const TeacherDashboard = () => {
 };
 
 export default TeacherDashboard;
-

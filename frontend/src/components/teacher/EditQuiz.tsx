@@ -49,31 +49,53 @@ const EditQuiz = ({ quizToEdit, onSave }) => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1">Quiz Name</label>
+                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Quiz Name</label>
                             <Input
                                 value={quiz.name}
                                 onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
                                 placeholder="Enter quiz name"
+                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
+                            {!quiz.name && <p className="text-red-500 text-sm">Quiz name is required.</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Description</label>
+                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Description</label>
                             <Input
                                 value={quiz.description}
                                 onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}
                                 placeholder="Enter quiz description"
+                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
+                            {!quiz.description && <p className="text-red-500 text-sm">Description is required.</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Price</label>
+                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Price</label>
                             <Input
                                 type="number"
                                 value={quiz.price}
                                 onChange={(e) => setQuiz({ ...quiz, price: e.target.value })}
                                 placeholder="Enter quiz price"
+                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
                             />
+                            {!quiz.price && <p className="text-red-500 text-sm">Price is required.</p>}
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Time (in minutes)</label>
+                            <Input
+                                type="number"
+                                min={1}
+                                max={180}
+                                value={quiz.time}
+                                onChange={(e) => setQuiz({ ...quiz, time: e.target.value })}
+                                placeholder="Enter time in minutes (1-180)"
+                                className="bg-white dark:bg-black text-gray-800 dark:text-white"
+                            />
+                            {(!quiz.time || quiz.time < 1 || quiz.time > 180) && (
+                                <p className="text-red-500 text-sm">Time is required (between 1 and 180 minutes).</p>
+                            )}
                         </div>
                     </CardContent>
+
                 </Card>
 
                 {/* Question Form */}

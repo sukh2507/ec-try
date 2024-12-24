@@ -1,4 +1,4 @@
-@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNDM1MTU1OSwiZXhwIjoxNzM0NDM3OTU5fQ.THu-jPQiisXDmrklfwUW6squl7lFUa3Any_IxvOwVC8
+@studentToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMDU4MTAxY2Q5MDcyYzg0ZTIyMyIsImlhdCI6MTczNTA0ODgyNiwiZXhwIjoxNzM1MTM1MjI2fQ.XqxXId379yGwlr-v2ct-3yIJbu5ndylqVu5BZFLsLak
 @teacherToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWFlMThlMTAxY2Q5MDcyYzg0ZTIzYSIsImlhdCI6MTczNDM1MzI1NCwiZXhwIjoxNzM0NDM5NjU0fQ.Qw2j_rJjCSY6-YN1R6bWzgApqyvsVdI-ZS5YOryvY4w
 
 @url=http://localhost:4000/api
@@ -47,7 +47,7 @@ POST {{url}}/auth/login
 Content-Type: application/json
 
 {
-    "email":"moeezali2375@gmail.com",
+    "email":"moeezali2375@icloud.com",
     "password":"1234"
 }
 
