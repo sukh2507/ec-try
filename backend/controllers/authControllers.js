@@ -44,7 +44,6 @@ const registerUser = async (req, res) => {
     ) {
       throw new Error("Please give all details. 🥸");
     }
-    console.log(subjects);
     const now = new Date();
     const userExists = await User.findOne({
       email: email,
