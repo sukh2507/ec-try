@@ -104,7 +104,10 @@ const MyQuizzesOverview = () => {
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">Purchased Quizzes</h2>
             <QuizList
                 quizzes={purchasedQuizzes}
-                onAction={() => navigate("/solve")}
+                onAction={(quiz) => {
+                    // Navigate to /solve page with the quiz ID
+                    navigate(`/solve/${quiz._id}`);
+                }}
                 actionLabel="Solve Now"
                 status="Purchased"
             />

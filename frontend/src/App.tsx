@@ -56,7 +56,7 @@ function App() {
               <Route path="/student/my-quizzes" element={<MyQuizzesOverview />} />
               <Route path="/student/my-quizzes/purchased" element={<MyQuizzesOverview />} />
               <Route path="/student/my-quizzes/pending" element={<MyQuizzesOverview />} />
-              <Route path="/solve" element={<QuizSolvingPage />} />
+              <Route path='/solve/:id' element={<QuizSolvingPage />} />
             </Route>
           </Route>
         </Route>
