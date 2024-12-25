@@ -26,9 +26,15 @@ export const requestATest = async (req, res) => {
   try {
     const { testId } = req.params;
     const student = await Student.findOne({ userId: req.user._id });
+
+    const testBeforeUpdate = await Test.findOne({
+      isVerified: true,
+      _id: testId,
+    });
+
     const updatedTest = await Test.findOneAndUpdate(
       { isVerified: true, _id: testId },
-      { $push: { requestedBy: student._id } },
+      { $addToSet: { requestedBy: student._id } },
       { new: true },
     )
       .populate({
@@ -38,12 +44,32 @@ export const requestATest = async (req, res) => {
       })
       .select("-__v -questions -isVerified");
 
+    const wasAdded =
+      !testBeforeUpdate.requestedBy.includes(student._id) &&
+      updatedTest.requestedBy.includes(student._id);
+
+    if (!wasAdded)
+      return res.status(200).send({
+        msg: { title: "Please wait while Admin verifies your payment ⏳💳" },
+      });
+
+    // const updatedTest = await Test.findOneAndUpdate(
+    //   { isVerified: true, _id: testId },
+    //   { $push: { requestedBy: student._id } },
+    //   { new: true },
+    // )
+    //   .populate({
+    //     path: "createdBy",
+    //     populate: { path: "userId", select: "name email" },
+    //     select: "stream subjects",
+    //   })
+    //   .select("-__v -questions -isVerified");
+
     res.status(200).send({
       msg: {
         title: "📸 Send Payment Screenshot on WhatsApp 📲",
         desc: "✅ After verification, you will be allowed to solve the test. 📝",
       },
-      test: updatedTest,
     });
   } catch (error) {
     res.status(400).send({ msg: { title: error.message } });

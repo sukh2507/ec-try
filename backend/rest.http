@@ -157,11 +157,11 @@ GET {{url}}/student/test
 Authorization: Bearer {{studentToken}}
 
 ### ? STUDENT / TEST / TESTID
-POST {{url}}/student/test/675aeda86291a4386f856b56
+POST {{url}}/student/test/676be4bb446f8f159f8b4f15
 Authorization: Bearer {{studentToken}}
 
 ### ? STUDENT / TEST / BOUGHT
-GET {{url}}/student/test/query?paid=0
+GET {{url}}/student/test/query?paid=1
 Authorization: Bearer {{studentToken}}
 
 ### ? STUDENT / TEST / TESTID / MARKS
