@@ -7,12 +7,15 @@ import {
   requestATest,
   getTestsByPaymentStatus,
   addMarks,
+  getTest,
 } from "../controllers/studentControllers.js";
 
 router.use(protect(["student"]));
 router.use(verify);
 
 router.get("/test", getAllTests);
+
+router.get("/test/:testId/details", getTest);
 
 router.post("/test/:testId", requestATest);
 

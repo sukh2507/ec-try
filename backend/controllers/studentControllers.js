@@ -53,18 +53,6 @@ export const requestATest = async (req, res) => {
         msg: { title: "Please wait while Admin verifies your payment ⏳💳" },
       });
 
-    // const updatedTest = await Test.findOneAndUpdate(
-    //   { isVerified: true, _id: testId },
-    //   { $push: { requestedBy: student._id } },
-    //   { new: true },
-    // )
-    //   .populate({
-    //     path: "createdBy",
-    //     populate: { path: "userId", select: "name email" },
-    //     select: "stream subjects",
-    //   })
-    //   .select("-__v -questions -isVerified");
-
     res.status(200).send({
       msg: {
         title: "📸 Send Payment Screenshot on WhatsApp 📲",
@@ -166,6 +154,32 @@ export const addMarks = async (req, res) => {
       msg: {
         title:
           "⚠️ An error occurred while adding marks. Please try again later.",
+      },
+    });
+  }
+};
+
+export const getTest = async (req, res) => {
+  try {
+    const { testId } = req.params;
+    const student = await Student.findOne({ userId: req.user._id });
+    const test = await Test.findOne({
+      _id: testId,
+      isVerified: true,
+      purchasedBy: { $in: [student._id] },
+    })
+      .populate({
+        path: "createdBy",
+        populate: { path: "userId", select: "name email" },
+        select: "stream subjects",
+      })
+      .select("-__v -isVerified");
+    res.status(200).send({ test: test });
+  } catch (error) {
+    return res.status(400).json({
+      msg: {
+        title:
+          "⚠️ An error occurred while fetching test details. Please try again later.",
       },
     });
   }
