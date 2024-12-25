@@ -33,8 +33,8 @@ const Header = () => {
           to="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          MERN
-          <span className="sr-only">MERN</span>
+          examChamp
+          <span className="sr-only">exampChamp</span>
         </Link>
         {/* <Link
           to="/"

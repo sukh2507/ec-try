@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import AllQuizzes from "./AllQuizzes";
+import { useState, useEffect } from "react";
 import EditQuiz from "./EditQuiz";
 import useAxios from "@/hooks/useAxios";
 import {
@@ -10,7 +9,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 
 const ShowAllQuizzes = () => {
   const axios = useAxios();
