@@ -1,24 +1,28 @@
-const User = require("../models/userModel");
-const Teacher = require("../models/teacherModel");
-const Student = require("../models/studentModel");
+import User from "../models/userModel.js";
+import Teacher from "../models/teacherModel.js";
+import Student from "../models/studentModel.js";
 
-const sendEmail = require("../utils/sendEmail");
-const {
-  generateVerificationToken,
-  generatePwdToken,
+import sendEmail from "../utils/sendEmail.js";
+
+import {
   expiry,
-} = require("../utils/verificationToken");
-const generateToken = require("../utils/generateToken");
-const {
+  generatePwdToken,
+  generateVerificationToken,
+} from "../utils/verificationToken.js";
+
+import generateToken from "../utils/generateToken.js";
+
+import {
   emailVerificationMessage,
   changeEmailVerficationMessage,
   forgetPwdVerificationMessage,
-} = require("../emails/verificationMessages");
-const {
+} from "../emails/verificationMessages.js";
+
+import {
   emailVerificationNotification,
   changeEmailVerificationNotification,
   changePasswordNotification,
-} = require("../emails/notificationMessages");
+} from "../emails/notificationMessages.js";
 
 const sendEmailNotification = async (to, subject, message) => {
   try {
@@ -28,7 +32,7 @@ const sendEmailNotification = async (to, subject, message) => {
   }
 };
 
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const { name, email, phone, password, role, stream, subjects } = req.body;
 
@@ -106,7 +110,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-const verifyToken = async (req, res) => {
+export const verifyToken = async (req, res) => {
   try {
     if (req.user.isVerified >= 1) throw new Error("User already verified. 🤨");
     const user = await User.findOne({
@@ -138,7 +142,7 @@ const verifyToken = async (req, res) => {
   }
 };
 
-const regenerateToken = async (req, res) => {
+export const regenerateToken = async (req, res) => {
   try {
     if (req.user.isVerified >= 1) throw new Error("User already verified. 🤨");
     const user = await User.findById(req.user._id);
@@ -159,7 +163,7 @@ const regenerateToken = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password, rememberMe } = req.body;
     if (!email || !password)
@@ -192,7 +196,7 @@ const login = async (req, res) => {
   }
 };
 
-const changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;
     const user = await User.findById(req.user._id);
@@ -222,7 +226,7 @@ const changePassword = async (req, res) => {
   }
 };
 
-const changeEmail = async (req, res) => {
+export const changeEmail = async (req, res) => {
   try {
     const { newEmail, password } = req.body;
     const user = await User.findById(req.user._id);
@@ -263,7 +267,7 @@ const changeEmail = async (req, res) => {
   }
 };
 
-const verifyChangeEmail = async (req, res) => {
+export const verifyChangeEmail = async (req, res) => {
   try {
     const token = req.params.token;
     const user = await User.findOne({
@@ -301,7 +305,7 @@ const verifyChangeEmail = async (req, res) => {
   }
 };
 
-const forgetPasswordInitiate = async (req, res) => {
+export const forgetPasswordInitiate = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email: email });
@@ -326,7 +330,7 @@ const forgetPasswordInitiate = async (req, res) => {
   }
 };
 
-const verifyForgetPasswordRequest = async (req, res) => {
+export const verifyForgetPasswordRequest = async (req, res) => {
   try {
     const email = req.params.email;
     const token = req.params.token;
@@ -349,16 +353,4 @@ const verifyForgetPasswordRequest = async (req, res) => {
   } catch (error) {
     res.status(400).send({ msg: { title: error.message } });
   }
-};
-
-module.exports = {
-  registerUser,
-  verifyToken,
-  regenerateToken,
-  login,
-  changePassword,
-  changeEmail,
-  verifyChangeEmail,
-  forgetPasswordInitiate,
-  verifyForgetPasswordRequest,
 };

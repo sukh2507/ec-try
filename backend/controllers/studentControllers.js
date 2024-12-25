@@ -1,8 +1,8 @@
-const Student = require("../models/studentModel");
-const Test = require("../models/testModel");
-const Submission = require("../models/submissionModel");
+import Student from "../models/studentModel.js";
+import Test from "../models/testModel.js";
+import Submission from "../models/submissionModel.js";
 
-const getAllTests = async (req, res) => {
+export const getAllTests = async (req, res) => {
   try {
     const student = await Student.findOne({ userId: req.user._id });
     const tests = await Test.find({
@@ -22,13 +22,19 @@ const getAllTests = async (req, res) => {
   }
 };
 
-const requestATest = async (req, res) => {
+export const requestATest = async (req, res) => {
   try {
     const { testId } = req.params;
     const student = await Student.findOne({ userId: req.user._id });
+
+    const testBeforeUpdate = await Test.findOne({
+      isVerified: true,
+      _id: testId,
+    });
+
     const updatedTest = await Test.findOneAndUpdate(
       { isVerified: true, _id: testId },
-      { $push: { requestedBy: student._id } },
+      { $addToSet: { requestedBy: student._id } },
       { new: true },
     )
       .populate({
@@ -38,19 +44,39 @@ const requestATest = async (req, res) => {
       })
       .select("-__v -questions -isVerified");
 
+    const wasAdded =
+      !testBeforeUpdate.requestedBy.includes(student._id) &&
+      updatedTest.requestedBy.includes(student._id);
+
+    if (!wasAdded)
+      return res.status(200).send({
+        msg: { title: "Please wait while Admin verifies your payment ⏳💳" },
+      });
+
+    // const updatedTest = await Test.findOneAndUpdate(
+    //   { isVerified: true, _id: testId },
+    //   { $push: { requestedBy: student._id } },
+    //   { new: true },
+    // )
+    //   .populate({
+    //     path: "createdBy",
+    //     populate: { path: "userId", select: "name email" },
+    //     select: "stream subjects",
+    //   })
+    //   .select("-__v -questions -isVerified");
+
     res.status(200).send({
       msg: {
         title: "📸 Send Payment Screenshot on WhatsApp 📲",
         desc: "✅ After verification, you will be allowed to solve the test. 📝",
       },
-      test: updatedTest,
     });
   } catch (error) {
     res.status(400).send({ msg: { title: error.message } });
   }
 };
 
-const getTestsByPaymentStatus = async (req, res) => {
+export const getTestsByPaymentStatus = async (req, res) => {
   try {
     const { paid } = req.query;
 
@@ -96,7 +122,7 @@ const getTestsByPaymentStatus = async (req, res) => {
   }
 };
 
-const addMarks = async (req, res) => {
+export const addMarks = async (req, res) => {
   try {
     const { marks } = req.body;
 
@@ -143,11 +169,4 @@ const addMarks = async (req, res) => {
       },
     });
   }
-};
-
-module.exports = {
-  getAllTests,
-  requestATest,
-  getTestsByPaymentStatus,
-  addMarks,
 };

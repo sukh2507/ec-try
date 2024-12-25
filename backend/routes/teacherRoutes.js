@@ -1,12 +1,13 @@
-const express = require("express");
-const protect = require("../middlewares/authMiddleware");
-const verify = require("../middlewares/verifyMiddleware");
-const {
+import express from "express";
+import protect from "../middlewares/authMiddleware.js";
+import verify from "../middlewares/verifyMiddleware.js";
+import {
   teacherHome,
   createTest,
   updateTest,
   getAllTests,
-} = require("../controllers/teacherControllers");
+} from "../controllers/teacherControllers.js";
+
 const router = express.Router();
 
 router.use(protect(["teacher"]));
@@ -20,4 +21,4 @@ router.put("/test/:id", updateTest);
 
 router.get("/test", getAllTests);
 
-module.exports = router;
+export default router;

@@ -1,9 +1,9 @@
-const baseUrl =
+export const baseUrl =
   process.env.NODE_ENV === "dev"
     ? process.env.CLIENT_DEV_URL
     : process.env.CLIENT_PROD_URL;
 
-const emailVerificationMessage = (user) => {
+export const emailVerificationMessage = (user) => {
   const message = {
     subject: "Email Verification",
     body: `
@@ -14,7 +14,7 @@ const emailVerificationMessage = (user) => {
   return message;
 };
 
-const changeEmailVerficationMessage = (user) => {
+export const changeEmailVerficationMessage = (user) => {
   const verificationUrl = `${baseUrl}/email/verify/${user.newEmailToken}`;
   const body = `<p>Dear ${user.name},</p>
     <p>Please verify your email by clicking the link below:</p><a href="${verificationUrl}">${verificationUrl}</a>
@@ -28,7 +28,7 @@ const changeEmailVerficationMessage = (user) => {
   return message;
 };
 
-const forgetPwdVerificationMessage = (user) => {
+export const forgetPwdVerificationMessage = (user) => {
   const verificationUrl = `${baseUrl}/password/verify/${user.email}/${user.forgetPasswordToken}`;
   const body = `<p>Dear ${user.name},</p>
     <p>Please verify your request by clicking the link below:</p><a href="${verificationUrl}">Click Me.</a>
@@ -39,10 +39,4 @@ const forgetPwdVerificationMessage = (user) => {
     body: body,
   };
   return message;
-};
-
-module.exports = {
-  emailVerificationMessage,
-  changeEmailVerficationMessage,
-  forgetPwdVerificationMessage,
 };

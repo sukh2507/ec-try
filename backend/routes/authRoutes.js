@@ -1,8 +1,7 @@
-const router = require("express").Router();
-const protect = require("../middlewares/authMiddleware");
-const userVerify = require("../middlewares/verifyMiddleware");
-
-const {
+import protect from "../middlewares/authMiddleware.js";
+import userVerify from "../middlewares/verifyMiddleware.js";
+import express from "express";
+import {
   registerUser,
   verifyToken,
   regenerateToken,
@@ -12,9 +11,10 @@ const {
   verifyChangeEmail,
   forgetPasswordInitiate,
   verifyForgetPasswordRequest,
-} = require("../controllers/authControllers");
+} from "../controllers/authControllers.js";
 
-router.get("/", (req, res) => {
+const router = express.Router();
+router.get("/", (_, res) => {
   res.send("Auth Routes");
 });
 
@@ -54,4 +54,4 @@ router.put("/password/forget", forgetPasswordInitiate);
 
 router.put("/password/verify/:email/:token", verifyForgetPasswordRequest);
 
-module.exports = router;
+export default router;

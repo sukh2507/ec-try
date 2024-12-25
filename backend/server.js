@@ -1,14 +1,17 @@
-const express = require("express");
-require("dotenv").config();
-require("./jobs/cleanup");
-const connectDB = require("./config/db");
-const homeRoutes = require("./routes/routes");
-const authRoutes = require("./routes/authRoutes");
-const protectRoutes = require("./routes/protectRoutes");
-const teacherRoutes = require("./routes/teacherRoutes");
-const studentRoutes = require("./routes/studentRoutes");
-const { crossOrigin } = require("./middlewares/corsMiddleware");
-const path = require("path");
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+import "./jobs/cleanup.js";
+import connectDB from "./config/db.js";
+import homeRoutes from "./routes/routes.js";
+import authRoutes from "./routes/authRoutes.js";
+
+import protectRoutes from "./routes/protectRoutes.js";
+
+import teacherRoutes from "./routes/teacherRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
+import { crossOrigin } from "./middlewares/corsMiddleware.js";
+import path from "path";
 
 const app = express();
 

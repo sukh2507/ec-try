@@ -1,8 +1,8 @@
-const router = require("express").Router();
-const protect = require("../middlewares/authMiddleware");
-const verify = require("../middlewares/verifyMiddleware");
-const { checkLogin } = require("../controllers/protectControllers");
+import express from "express";
+const router = express.Router();
+import protect from "../middlewares/authMiddleware.js";
+import verify from "../middlewares/verifyMiddleware.js ";
+import { checkLogin } from "../controllers/protectControllers.js";
 
 router.get("/", protect(["student", "teacher"]), verify, checkLogin);
-
-module.exports = router;
+export default router;

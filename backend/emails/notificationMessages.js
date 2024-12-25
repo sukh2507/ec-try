@@ -1,4 +1,4 @@
-const emailVerificationNotification = (user) => {
+export const emailVerificationNotification = (user) => {
   const message = {
     subject: "Email Verfied",
     body: `<p>Dear ${user.name},</p>
@@ -7,7 +7,7 @@ const emailVerificationNotification = (user) => {
   };
   return message;
 };
-const changeEmailVerificationNotification = (user) => {
+export const changeEmailVerificationNotification = (user) => {
   const message = {
     subject: "Email Changed",
     body: `<p>Dear ${user.name},</p>
@@ -17,7 +17,7 @@ const changeEmailVerificationNotification = (user) => {
   return message;
 };
 
-const changePasswordNotification = (user) => {
+export const changePasswordNotification = (user) => {
   const message = {
     subject: "Password Changed",
     body: `<p>Dear ${user.name},</p>
@@ -25,10 +25,4 @@ const changePasswordNotification = (user) => {
           <p>Best regards,<br>Moeez Ali</p>`,
   };
   return message;
-};
-
-module.exports = {
-  emailVerificationNotification,
-  changeEmailVerificationNotification,
-  changePasswordNotification,
 };

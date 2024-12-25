@@ -1,5 +1,3 @@
-const User = require("../models/userModel");
-
 const verify = async (req, res, next) => {
   if (req.user.role === "student") {
     if (req.user.isVerified === 1) return next();
@@ -28,5 +26,4 @@ const verify = async (req, res, next) => {
       }
     }
 };
-
-module.exports = verify;
+export default verify;
