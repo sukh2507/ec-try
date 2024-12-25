@@ -1,11 +1,11 @@
-const Test = require("../models/testModel");
-const Teacher = require("../models/teacherModel");
+import Test from "../models/testModel.js";
+import Teacher from "../models/teacherModel.js";
 
-const teacherHome = async (req, res) => {
+export const teacherHome = async (_, res) => {
   res.send({ msg: "Hello teacher" });
 };
 
-const createTest = async (req, res) => {
+export const createTest = async (req, res) => {
   try {
     const { name, description, price, questions, time } = req.body;
     if (!name || !description || !price || !questions || !time)
@@ -36,7 +36,7 @@ const createTest = async (req, res) => {
   }
 };
 
-const updateTest = async (req, res) => {
+export const updateTest = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, price, questions, time } = req.body;
@@ -71,7 +71,7 @@ const updateTest = async (req, res) => {
   }
 };
 
-const getAllTests = async (req, res) => {
+export const getAllTests = async (req, res) => {
   try {
     const teacher = await Teacher.findOne({ userId: req.user._id });
     const tests = await Test.find({ createdBy: teacher._id });
@@ -79,11 +79,4 @@ const getAllTests = async (req, res) => {
   } catch (error) {
     res.status(400).send({ msg: { title: error.message } });
   }
-};
-
-module.exports = {
-  teacherHome,
-  createTest,
-  updateTest,
-  getAllTests,
 };

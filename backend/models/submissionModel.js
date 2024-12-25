@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const submissionSchema = new mongoose.Schema(
   {
@@ -32,4 +32,4 @@ submissionSchema.index({ testId: 1, studentId: 1 }, { unique: true });
 
 const Submission = mongoose.model("Submission", submissionSchema);
 
-module.exports = Submission;
+export default Submission;

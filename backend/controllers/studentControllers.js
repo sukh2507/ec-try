@@ -1,8 +1,8 @@
-const Student = require("../models/studentModel");
-const Test = require("../models/testModel");
-const Submission = require("../models/submissionModel");
+import Student from "../models/studentModel.js";
+import Test from "../models/testModel.js";
+import Submission from "../models/submissionModel.js";
 
-const getAllTests = async (req, res) => {
+export const getAllTests = async (req, res) => {
   try {
     const student = await Student.findOne({ userId: req.user._id });
     const tests = await Test.find({
@@ -22,7 +22,7 @@ const getAllTests = async (req, res) => {
   }
 };
 
-const requestATest = async (req, res) => {
+export const requestATest = async (req, res) => {
   try {
     const { testId } = req.params;
     const student = await Student.findOne({ userId: req.user._id });
@@ -50,7 +50,7 @@ const requestATest = async (req, res) => {
   }
 };
 
-const getTestsByPaymentStatus = async (req, res) => {
+export const getTestsByPaymentStatus = async (req, res) => {
   try {
     const { paid } = req.query;
 
@@ -96,7 +96,7 @@ const getTestsByPaymentStatus = async (req, res) => {
   }
 };
 
-const addMarks = async (req, res) => {
+export const addMarks = async (req, res) => {
   try {
     const { marks } = req.body;
 
@@ -143,11 +143,4 @@ const addMarks = async (req, res) => {
       },
     });
   }
-};
-
-module.exports = {
-  getAllTests,
-  requestATest,
-  getTestsByPaymentStatus,
-  addMarks,
 };

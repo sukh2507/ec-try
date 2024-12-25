@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const protect = require("../middlewares/authMiddleware");
-const { verify } = require("jsonwebtoken");
-const {
+import protect from "../middlewares/authMiddleware.js";
+import verify from "../middlewares/verifyMiddleware.js";
+import {
   getAllTests,
   requestATest,
   getTestsByPaymentStatus,
   addMarks,
-} = require("../controllers/studentControllers");
+} from "../controllers/studentControllers.js";
 
 router.use(protect(["student"]));
 router.use(verify);
@@ -20,4 +20,4 @@ router.get("/test/query", getTestsByPaymentStatus);
 
 router.post("/test/:testId/marks", addMarks);
 
-module.exports = router;
+export default router;

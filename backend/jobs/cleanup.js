@@ -1,8 +1,10 @@
-const cron = require("node-cron");
-const User = require("../models/userModel");
-const Teacher = require("../models/teacherModel");
-const Student = require("../models/studentModel");
+import cron from "node-cron";
+import User from "../models/userModel.js";
+import Teacher from "../models/teacherModel.js";
+import Student from "../models/studentModel.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 cron.schedule(process.env.CRON_TIME, async () => {
   try {
     const now = new Date();
@@ -71,4 +73,3 @@ cron.schedule(process.env.CRON_TIME, async () => {
     console.error("Error in Cleanup Job:", error);
   }
 });
-
