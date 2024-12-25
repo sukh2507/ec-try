@@ -1,4 +1,8 @@
+import AdminJS from "adminjs";
+import AdminJSExpress from "@adminjs/express";
+import * as AdminJSMongoose from "@adminjs/mongoose";
 import express from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import "./jobs/cleanup.js";
@@ -12,8 +16,96 @@ import teacherRoutes from "./routes/teacherRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
 import { crossOrigin } from "./middlewares/corsMiddleware.js";
 import path from "path";
+import userModel from "./models/userModel.js";
+import studentModel from "./models/studentModel.js";
+import teacherModel from "./models/teacherModel.js";
+import testModel from "./models/testModel.js";
+import submissionModel from "./models/submissionModel.js";
 
 const app = express();
+AdminJS.registerAdapter({
+  Resource: AdminJSMongoose.Resource,
+  Database: AdminJSMongoose.Database,
+});
+
+const ADMIN = {
+  email: "admin@example.com",
+  password: "1234",
+};
+
+const admin = new AdminJS({
+  resources: [
+    {
+      resource: userModel,
+      options: {
+        navigation: { name: "User Management" },
+      },
+    },
+    {
+      resource: studentModel,
+      options: {
+        navigation: { name: "Student Management" },
+      },
+    },
+    {
+      resource: teacherModel,
+      options: {
+        navigation: { name: "Teacher Management" },
+      },
+    },
+    {
+      resource: testModel,
+      options: {
+        navigation: { name: "Test Management" },
+      },
+    },
+    {
+      resource: submissionModel,
+      options: {
+        navigation: { name: "Submission Management" },
+      },
+    },
+  ],
+  rootPath: "/admin",
+  branding: {
+    companyName: "ExamChamp",
+    logo: "https://your-logo-url.com/logo.png",
+    favicon: "https://your-favicon-url.com/favicon.ico",
+    styles: {
+      ".adminjs_LoggedInFooter": { display: "none" },
+    },
+    // theme: {
+    //   colors: {
+    //     primary100: "#f0f4ff",
+    //     primary500: "#1e90ff",
+    //     accent: "#ffd700",
+    //   },
+    // },
+  },
+});
+
+const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+  admin,
+  {
+    authenticate: async (email, password) => {
+      if (email === ADMIN.email && password === ADMIN.password) {
+        return ADMIN;
+      }
+      return null;
+    },
+    cookieName: "adminjs",
+    cookiePassword: "supersecretpassword", // Change this to a secure password
+  },
+  null,
+  {
+    resave: false,
+    saveUninitialized: true,
+    secret: "anotherSuperSecret", // Change this to a secure key
+  },
+);
+
+app.use(admin.options.rootPath, adminRouter);
+
 
 //!Middlewares
 app.use(express.json());
