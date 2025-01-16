@@ -39,7 +39,7 @@ const ResetPwd = () => {
     if (match == 2 || match == 0) return;
     try {
       setIsLoading(true);
-      await axios.put(`/auth/password/verify/${email}/${token}`, {
+      await axios.put(`${import.meta.env.VITE_Backend_url}/auth/password/verify/${email}/${token}`, {
         password: pwd,
       });
       navigate("/");

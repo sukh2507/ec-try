@@ -15,7 +15,7 @@ const ChangeEmailVerification = () => {
     () => {
       const verifyChangeEmail = async () => {
         try {
-          const res = await axios.get("/auth/email/verify/" + token);
+          const res = await axios.get(`${import.meta.env.VITE_Backend_url}/auth/email/verify/` + token);
           setUser({ ...user, email: res.data.newEmail });
           setIsLoading(1);
         } catch (error) {

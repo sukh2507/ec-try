@@ -24,7 +24,7 @@ const QuizSolvingPage = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(`/student/test/${id}/details`);
+        const response = await axios.get(`${import.meta.env.VITE_Backend_url}/student/test/${id}/details`);
         console.log(response.data.test);
         setQuizData(response.data.test);
         setTimer(response.data.test.time * 60);
@@ -123,13 +123,13 @@ const QuizSolvingPage = () => {
         isCorrect,
       };
     });
-    try {
-      const res = axios.post(`/student/test/${quizData._id}/marks`, {
-        marks: correctAnswers,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const res = axios.post(`${import.meta.env.VITE_Backend_url}/student/test/${quizData._id}/marks`, {
+    //     marks: correctAnswers,
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
     setResult({
       correctAnswers,

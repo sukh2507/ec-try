@@ -26,7 +26,7 @@ const EmailDialog = ({ setEmailDialog }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.put("/auth/email", {
+      await axios.put("http://localhost:4000/auth/email", {
         newEmail: email,
         password: pwd,
       });

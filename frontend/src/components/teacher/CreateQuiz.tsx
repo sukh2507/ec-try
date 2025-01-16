@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import QuestionForm from "../QuestionForm"; // Assuming this component is in the same directory
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,7 +46,7 @@ const CreateQuiz = () => {
     const saveQuiz = async () => {
         console.log("Quiz Saved", quiz);
         try {
-            const res = await axios.post("/teacher/test", quiz);
+            const res = await axios.post(`${import.meta.env.VITE_Backend_url}/teacher/test`, quiz);
             console.log(res);
             navigate("/teacher");
         } catch (error) {
@@ -106,7 +106,7 @@ const CreateQuiz = () => {
                                 placeholder="Enter time in minutes (1-180)"
                                 className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white border focus:ring focus:ring-blue-300"
                             />
-                            {(!quiz.time || quiz.time < 1 || quiz.time > 180) && (
+                            {(!quiz.time || parseInt(quiz.time) < 1 || parseInt(quiz.time) > 180) && (
                                 <p className="text-red-500 text-sm">Time is required (between 1 and 180 minutes).</p>
                             )}
                         </div>

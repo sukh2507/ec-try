@@ -88,7 +88,7 @@ const Signup = () => {
     }
     try {
       setIsLoading(true);
-      const res = await axios.post("/auth/register", {
+      const res = await axios.post(`${import.meta.env.VITE_Backend_url}/auth/register`, {
         name,
         email,
         phone,
@@ -138,7 +138,7 @@ const Signup = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="moeezali2375@gmail.com"
+                placeholder="email@example.com"
                 autoCorrect="off"
                 spellCheck="false"
                 required

@@ -1,9 +1,9 @@
-import React from "react";
+// import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
-const AllQuizzes = ({ quizzes, onDelete, onEdit }) => {
+const AllQuizzes = ({ quizzes , onEdit }) => { // here onDelete was an arguement which was never used so it was removed form here
     const navigate = useNavigate();
     return (
         <div className="p-6 bg-white dark:bg-black text-gray-800 dark:text-white">

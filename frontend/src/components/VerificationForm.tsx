@@ -53,7 +53,7 @@ export function VerificationForm() {
   const handleResend = async () => {
     setIsLoading2(true);
     try {
-      await axios.get("/auth/token/regenerate");
+      await axios.get(`${import.meta.env.VITE_Backend_url}/auth/token/regenerate`);
     } catch (error) {
       console.log(error);
     } finally {

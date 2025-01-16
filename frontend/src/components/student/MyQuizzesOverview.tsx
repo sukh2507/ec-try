@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import QuizList from "./QuizList";
@@ -20,10 +20,10 @@ const MyQuizzesOverview = () => {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const pendingResponse = await axios.get("/student/test/query?paid=0");
+                const pendingResponse = await axios.get(`${import.meta.env.VITE_Backend_url}/student/test/query?paid=0`);
                 setPendingQuizzes(pendingResponse.data.tests);
 
-                const purchasedResponse = await axios.get("/student/test/query?paid=1");
+                const purchasedResponse = await axios.get(`${import.meta.env.VITE_Backend_url}/student/test/query?paid=1`);
                 setPurchasedQuizzes(purchasedResponse.data.tests);
             } catch (err) {
                 console.error("Error fetching quizzes:", err);

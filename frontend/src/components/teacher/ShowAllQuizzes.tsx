@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import EditQuiz from "./EditQuiz";
 import useAxios from "@/hooks/useAxios";
+import { Spinner } from "../ui/Spinner";
 import {
   Card,
   CardHeader,
@@ -22,7 +23,7 @@ const ShowAllQuizzes = () => {
     const fetchQuizzes = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/teacher/test");
+        const response = await axios.get(`${import.meta.env.VITE_Backend_url}/teacher/test`);
         setQuizzes(response.data.tests);
       } catch (err) {
         setError(err.message);
@@ -38,20 +39,20 @@ const ShowAllQuizzes = () => {
     setEditingQuiz(quiz);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/teacher/test/${id}`);
-      const updatedQuizzes = quizzes.filter((quiz) => quiz._id !== id);
-      setQuizzes(updatedQuizzes);
-      alert("Quiz deleted successfully.");
-    } catch (error) {
-      alert("Failed to delete quiz. Please try again.");
-    }
-  };
+  // const handleDelete = async  (id) => {
+  //   try {
+  //     await axios.delete(`${import.meta.env.VITE_Backend_url}/teacher/test/${id}`);
+  //     const updatedQuizzes = quizzes.filter((quiz) => quiz._id !== id);
+  //     setQuizzes(updatedQuizzes);
+  //     alert("Quiz deleted successfully.");
+  //   } catch (error) {
+  //     alert("Failed to delete quiz. Please try again.");
+  //   }
+  // };
 
   const handleSave = async (updatedQuiz) => {
     try {
-      await axios.put(`/teacher/test/${updatedQuiz._id}`, updatedQuiz);
+      await axios.put(`${import.meta.env.VITE_Backend_url}/teacher/test/${updatedQuiz._id}`, updatedQuiz);
       const updatedQuizzes = quizzes.map((quiz) =>
         quiz._id === updatedQuiz._id ? updatedQuiz : quiz,
       );
@@ -66,7 +67,7 @@ const ShowAllQuizzes = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Spinner size="lg" className="text-blue-500" />
+        <Spinner  />
       </div>
     );
   }

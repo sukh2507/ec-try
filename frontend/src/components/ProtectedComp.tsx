@@ -2,9 +2,9 @@ import useAxios from "@/hooks/useAxios";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
-import Teacher from "@/components/Teacher"
+// import Teacher from "@/components/Teacher"
 import CreateQuiz from "./teacher/CreateQuiz";
-
+const axios=useAxios()
 
 const ProtectedComp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ const ProtectedComp = () => {
   const checkStatus = async () => {
     setIsLoading(true);
     try {
-      await axios.get("/protect");
+      await axios.get(`${import.meta.env.VITE_Backend_url}/protect`);
     } catch (error) {
       console.log(error);
     } finally {

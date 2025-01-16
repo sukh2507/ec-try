@@ -24,7 +24,7 @@ const ForgetPwd = () => {
     e.preventDefault();
     setisLoading(true);
     try {
-      await axios.put("/auth/password/forget", { email: email });
+      await axios.put(`${import.meta.env.VITE_Backend_url}/auth/password/forget`, { email: email });
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ const ForgetPwd = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="moeezali2375@gmail.com"
+                  placeholder="email@example.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

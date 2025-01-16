@@ -38,7 +38,7 @@ const PasswordDialog = ({ setPwdDialog }) => {
     if (!oldPwd || match === 2 || match === 0) return;
     try {
       setIsLoading(true);
-      await axios.put("/auth/password", {
+      await axios.put(`${import.meta.env.VITE_Backend_url}/auth/password`, {
         oldPassword: oldPwd,
         newPassword: pwd,
       });

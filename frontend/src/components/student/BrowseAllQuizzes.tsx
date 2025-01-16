@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import  { useEffect, useState, useMemo } from "react";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ const BrowseAllQuizzes = () => {
     const fetchQuizzes = async () => {
         try {
             setLoading(true);
-            const response = await axios.get("/student/test");
+            const response = await axios.get(`${import.meta.env.VITE_Backend_url}/student/test`);
             setQuizzes(response.data.tests);
         } catch (err) {
             setError(err.message);
@@ -30,7 +30,7 @@ const BrowseAllQuizzes = () => {
 
     const handleBuyQuiz = async (quizId) => {
         try {
-            await axios.post(`/student/test/${quizId}`);
+            await axios.post(`${import.meta.env.VITE_Backend_url}/student/test/${quizId}`);
             alert("Quiz added to pending payments successfully!");
             await fetchQuizzes();
         } catch (err) {
@@ -49,7 +49,7 @@ const BrowseAllQuizzes = () => {
         return (
             <div className="flex justify-center items-center h-screen">
                 <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
-                <style jsx>{`
+                <style >{`
                     .loader {
                         border-top-color: #3498db;
                         animation: spin 1s linear infinite;

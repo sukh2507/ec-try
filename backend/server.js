@@ -9,12 +9,12 @@ import "./jobs/cleanup.js";
 import connectDB from "./config/db.js";
 import homeRoutes from "./routes/routes.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import cors from 'cors'
 import protectRoutes from "./routes/protectRoutes.js";
 
 import teacherRoutes from "./routes/teacherRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
-import { crossOrigin } from "./middlewares/corsMiddleware.js";
+// import {crossOrigin } from "./middlewares/cosrsMiddleware.js";
 import path from "path";
 import userModel from "./models/userModel.js";
 import studentModel from "./models/studentModel.js";
@@ -23,6 +23,7 @@ import testModel from "./models/testModel.js";
 import submissionModel from "./models/submissionModel.js";
 
 const app = express();
+app.use(cors())
 AdminJS.registerAdapter({
   Resource: AdminJSMongoose.Resource,
   Database: AdminJSMongoose.Database,
@@ -110,7 +111,7 @@ app.use(admin.options.rootPath, adminRouter);
 //!Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-crossOrigin(app);
+// crossOrigin(app);
 app.use("/api", homeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/protect", protectRoutes);
