@@ -13,6 +13,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
     "types": ["vite/client"]
   }
 }
