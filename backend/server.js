@@ -11,7 +11,6 @@ import homeRoutes from "./routes/routes.js";
 import authRoutes from "./routes/authRoutes.js";
 import cors from 'cors'
 import protectRoutes from "./routes/protectRoutes.js";
-
 import teacherRoutes from "./routes/teacherRoutes.js";
 import studentRoutes from "./routes/studentRoutes.js";
 // import {crossOrigin } from "./middlewares/cosrsMiddleware.js";
@@ -23,7 +22,11 @@ import testModel from "./models/testModel.js";
 import submissionModel from "./models/submissionModel.js";
 
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: ["https://examchamp.vercel.app"],
+  methods:['POST','GET'],
+  credentials: true
+}))
 AdminJS.registerAdapter({
   Resource: AdminJSMongoose.Resource,
   Database: AdminJSMongoose.Database,
@@ -108,6 +111,7 @@ const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
 app.use(admin.options.rootPath, adminRouter);
 
 
+
 //!Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -123,6 +127,17 @@ const __dirname1 = path.resolve();
 app.get("*", (req, res) => res.redirect("/api"));
 
 const PORT = process.env.PORT;
+
+
+const dirname = path.resolve();
+
+if(process.env.NODE_ENV==="production"){
+app.use(express.static(path.join(dirname,"../frontend/dist")));
+
+app.get("*",(req,res) => {
+res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
+})
+}
 
 app.listen(PORT, () => {
   console.log("Server Started on Port: " + PORT);

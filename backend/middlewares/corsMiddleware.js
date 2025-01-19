@@ -1,7 +1,7 @@
 import cors from "cors";
 
 export const crossOrigin = (app) => {
-  if (process.env.NODE_ENV === "dev") {
+  if (process.env.NODE_ENV === "production") {
     //! Development environment
     app.use(
       cors({

@@ -1,5 +1,5 @@
 export const baseUrl =
-  process.env.NODE_ENV === "dev"
+  process.env.NODE_ENV === "production"
     ? process.env.CLIENT_DEV_URL
     : process.env.CLIENT_PROD_URL;
 
